@@ -5,3 +5,9 @@
   flex-grow: 1;
   width: 100%;
 }
+
+.Graph-dataSource,
+.Graph-dataSource a {
+  font-size: .75rem;
+  color: #777;
+}
