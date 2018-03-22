@@ -33,8 +33,8 @@ export default async function (minmagnitude) {
       }
     });
     chartData.push({
-      year: index,
-      count,
+      Jahr: index,
+      Erdbeben: count,
     });
   }
 

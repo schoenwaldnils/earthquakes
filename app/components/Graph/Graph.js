@@ -48,15 +48,15 @@ class Graph extends PureComponent {
                 margin={{
                   top: 10, right: 18, bottom: 15, left: -20,
                 }}>
-                <YAxis dataKey="count" />
+                <YAxis dataKey="Erdbeben" />
                 <XAxis
-                  dataKey="year"
+                  dataKey="Jahr"
                   type="number"
                   domain={['dataMin', 'dataMax']}
                   tickCount={13} />
                 <CartesianGrid stroke="#f5f5f5" />
                 <Tooltip />
-                <Line type="monotone" dataKey="count" stroke="#8884d8" />
+                <Line type="monotone" dataKey="Erdbeben" stroke="#8884d8" />
               </LineChart>
             </ResponsiveContainer>
             <div className="Graph-dataSource">
