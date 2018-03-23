@@ -9,6 +9,7 @@ import {
   CartesianGrid,
   Tooltip,
 } from 'recharts';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import calcEarthquakeData from '../../js/utils/calcEarthquakeData';
 import './Graph.css';
 
@@ -40,6 +41,11 @@ class Graph extends PureComponent {
     const { chartData } = this.state;
     return (
       <div className="Graph">
+        {!chartData &&
+          <div className="Graph-loading">
+            <LoadingSpinner />
+          </div>
+        }
         {chartData &&
           <Fragment>
             <ResponsiveContainer height={400}>

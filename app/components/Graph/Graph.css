@@ -6,6 +6,14 @@
   width: 100%;
 }
 
+.Graph-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  font-size: 3rem;
+}
+
 .Graph-dataSource,
 .Graph-dataSource a {
   font-size: .75rem;
