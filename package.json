@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "next build",
     "start": "next start",
-    "export": "next build && next export -o docs && touch docs/.nojekyll && touch docs/CNAME && echo \"earthquakes.schoenwald.media\" >> docs/CNAME",
+    "export": ".scripts/export.sh",
     "dev": "next dev"
   },
   "keywords": [],
