@@ -8,6 +8,7 @@ export default async function (minmagnitude) {
     endYear: today.getFullYear(),
   };
 
+  // https://earthquake.usgs.gov/fdsnws/event/1/
   const params = {
     format: 'geojson',
     starttime: `${options.startYear}-01-01`,
