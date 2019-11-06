@@ -1,4 +1,4 @@
-name: timeline
+name: earthquakes
 
 on:
   push:
