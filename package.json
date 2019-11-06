@@ -4,26 +4,53 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "export": "next build && next export",
-    "dev": "next dev"
+    "export": "NODE_ENV=production next build && next export",
+    "test": "npm run lint",
+    "lint": "npm run lint:css && npm run lint:js",
+    "lint-fix": "npm run lint:css-fix && npm run lint:js-fix",
+    "lint:css": "stylelint \"**/*.js\"",
+    "lint:js": "eslint \"**/*.js\"",
+    "lint:js-fix": "eslint \"**/*.js\" --fix"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@zeit/next-css": "^0.1.5",
-    "eslint": "^4.19.1",
-    "eslint-config-schoenwaldnils": "^1.0.1",
-    "isomorphic-unfetch": "^2.0.0",
-    "next": "^5.0.1-canary.16",
-    "prop-types": "^15.6.1",
-    "qs": "^6.5.1",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-select": "^1.2.1",
-    "recharts": "^1.0.0-beta.10"
+    "@emotion/core": "10.0.22",
+    "@emotion/styled": "10.0.23",
+    "@zeit/next-css": "1.0.1",
+    "isomorphic-unfetch": "3.0.0",
+    "next": "9.1.2",
+    "prop-types": "15.7.2",
+    "qs": "6.9.0",
+    "raw-loader": "3.1.0",
+    "react": "16.11.0",
+    "react-dom": "16.11.0",
+    "react-select": "3.0.8",
+    "recharts": "1.8.5",
+    "webpack-filter-warnings-plugin": "1.2.1"
+  },
+  "devDependencies": {
+    "eslint": "6.6.0",
+    "eslint-config-schoenwaldnils": "3.0.2",
+    "husky": "3.0.9",
+    "lint-staged": "9.4.2",
+    "prettier": "1.18.2",
+    "stylelint": "11.1.1",
+    "stylelint-config-schoenwaldnils": "2.1.1"
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "eslint --fix",
+      "stylelint --formatter verbose",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
