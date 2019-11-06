@@ -19,8 +19,6 @@ jobs:
         run: npm run lint:css
       - name: export
         run: npm run export
-      - name: lint html
-        run: npm run lint:html
       - name: S3 Sync
         uses: jakejarvis/s3-sync-action@v0.5.0
         env:
