@@ -1,40 +1,106 @@
 const fetch = require('isomorphic-unfetch')
 const qs = require('qs')
+const cliProgress = require('cli-progress')
+const fileQuakes = require('../../../quakes.json')
 
-module.exports = async () => {
-  const today = new Date()
-  const options = {
-    startYear: 1900,
-    endYear: today.getFullYear(),
-  }
+const progressBar = new cliProgress.SingleBar({}, cliProgress.Presets.rect)
 
+async function fetchEarthquakeData(year, magnitude) {
   // https://earthquake.usgs.gov/fdsnws/event/1/
   const params = {
     format: 'geojson',
-    starttime: `${options.startYear}-01-01`,
-    endtime: `${options.endYear}-12-31`,
-    minmagnitude: 6,
+    starttime: `${year}-01-01`,
+    endtime: `${year}-12-31`,
+    minmagnitude: magnitude,
+    maxmagnitude: magnitude + 1,
   }
   const stringifiedParams = qs.stringify(params)
   const data = await fetch(
-    `https://earthquake.usgs.gov/fdsnws/event/1/query?${stringifiedParams}`,
+    `https://earthquake.usgs.gov/fdsnws/event/1/count?${stringifiedParams}`,
   ).catch(err => {
     console.log(err)
   })
 
+  if (data.status && data.status !== 200) {
+    console.log(
+      '\n',
+      'ERROR! Go to: ',
+      '\n',
+      `https://earthquake.usgs.gov/fdsnws/event/1/count?${stringifiedParams}`,
+      '\n',
+    )
+    console.log(data)
+  }
+
   const dataJson = await data.json()
 
-  const quakesFiltered = dataJson.features.map(i => {
-    const time = new Date(i.properties.time)
-    const year = time.getFullYear()
+  // console.log(dataJson)
 
-    const mag = Math.floor(i.properties.mag)
+  return dataJson.count
+}
 
-    return {
+// fetchEarthquakeData(2010, 3)
+
+const composeData = async () => {
+  const today = new Date()
+  const startYear = 2019
+  const endYear = today.getFullYear()
+
+  const startMagnitude = 1
+  const endMagnitude = 9
+
+  const numberOfCalls =
+    (endMagnitude - startMagnitude + 1) * (endYear - startYear + 1)
+
+  progressBar.start(numberOfCalls, 0)
+
+  const years = Array.from(
+    Array(endYear - startYear + 1),
+    (x, index) => startYear + index,
+  )
+
+  const magnitudes = Array.from(
+    Array(endMagnitude - startMagnitude + 1),
+    (x, index) => startMagnitude + index,
+  )
+
+  const quakes = {}
+
+  await Promise.all(
+    years.map(async year => {
+      const yearsQuakes = {}
+
+      await Promise.all(
+        magnitudes.map(async magnitude => {
+          yearsQuakes[`m${magnitude}`] = await fetchEarthquakeData(
+            year,
+            magnitude,
+          )
+          progressBar.increment()
+        }),
+      )
+
+      quakes[year] = yearsQuakes
+    }),
+  )
+
+  const allQuakes = {
+    ...fileQuakes,
+    ...quakes,
+  }
+
+  const formatedQuakes = []
+
+  Object.keys(allQuakes).forEach(year => {
+    formatedQuakes.push({
+      ...allQuakes[year],
       year,
-      mag,
-    }
+    })
   })
 
-  return quakesFiltered
+  progressBar.stop()
+
+  return formatedQuakes
 }
+
+module.exports = composeData

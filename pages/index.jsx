@@ -14,6 +14,7 @@ const Wrapper = styled.div`
 const H1 = styled.h1`
   margin: 0;
   margin-bottom: 1rem;
+  font-size: 1.5rem;
 `
 
 const InputLabel = styled.label`
@@ -40,9 +41,15 @@ class Page extends PureComponent {
     const { minmagnitude } = this.state
 
     const { chartData } = this.props
-    const chartDataFiltered = chartData[minmagnitude]
+
+    // const chartDataFiltered = chartData[minmagnitude]
 
     const options = [
+      { value: 1, label: 'Magnitude >= 1' },
+      { value: 2, label: 'Magnitude >= 2' },
+      { value: 3, label: 'Magnitude >= 3' },
+      { value: 4, label: 'Magnitude >= 4' },
+      { value: 5, label: 'Magnitude >= 5' },
       { value: 6, label: 'Magnitude >= 6' },
       { value: 7, label: 'Magnitude >= 7' },
       { value: 8, label: 'Magnitude >= 8' },
@@ -59,10 +66,10 @@ class Page extends PureComponent {
           <InputSelect
             onChange={this.handleChange}
             options={options}
-            defaultValue={minmagnitude}
+            value={minmagnitude}
           />
         </InputLabel>
-        <Graph chartData={chartDataFiltered} />
+        <Graph chartData={chartData} minmagnitude={minmagnitude} />
       </Wrapper>
     )
   }
@@ -74,7 +81,7 @@ Page.defaultProps = {
 
 Page.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
-  chartData: PropTypes.object,
+  chartData: PropTypes.array,
 }
 
 export default Page

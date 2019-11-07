@@ -1,11 +1,9 @@
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin')
 const fetchEarthquakeData = require('./app/js/utils/fetchEarthquakeData')
-const calcEarthquakeData = require('./app/js/utils/calcEarthquakeData')
 
 module.exports = {
   exportPathMap: async () => {
-    const apiData = await fetchEarthquakeData()
-    const chartData = calcEarthquakeData(apiData)
+    const chartData = await fetchEarthquakeData()
     return {
       '/': {
         page: '/',
