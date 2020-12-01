@@ -8,45 +8,48 @@
     "build": "next build",
     "export": "NODE_ENV=production next build && next export",
     "test": "npm run lint",
-    "lint": "npm run lint:css && npm run lint:js",
-    "lint-fix": "npm run lint:css-fix && npm run lint:js-fix",
-    "lint:css": "stylelint \"**/*.js\"",
-    "lint:js": "eslint \"**/*.js\"",
-    "lint:js-fix": "eslint \"**/*.js\" --fix"
+    "lint": "npm run lint:css && npm run lint:ts",
+    "lint-fix": "npm run lint:css-fix && npm run lint:ts-fix",
+    "lint:css": "stylelint \"**/*.ts\"",
+    "lint:ts": "eslint \"**/*.ts\"",
+    "lint:ts-fix": "eslint \"**/*.ts\" --fix"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@emotion/core": "10.0.22",
-    "@emotion/styled": "10.0.23",
+    "@emotion/babel-plugin": "11.0.0",
+    "@emotion/react": "11.1.1",
+    "@emotion/styled": "11.0.0",
     "@zeit/next-css": "1.0.1",
-    "cli-progress": "3.3.1",
-    "isomorphic-unfetch": "3.0.0",
-    "next": "9.1.2",
+    "cli-progress": "3.8.2",
+    "eslint-config-cellular": "5.0.0",
+    "isomorphic-unfetch": "3.1.0",
+    "next": "10.0.3",
     "prop-types": "15.7.2",
-    "qs": "6.9.0",
-    "raw-loader": "3.1.0",
-    "react": "16.11.0",
-    "react-dom": "16.11.0",
-    "react-select": "3.0.8",
+    "qs": "6.9.4",
+    "raw-loader": "4.0.2",
+    "react": "17.0.1",
+    "typescript": "4.1.2",
+    "react-dom": "17.0.1",
+    "react-select": "3.1.1",
     "recharts": "1.8.5",
     "webpack-filter-warnings-plugin": "1.2.1"
   },
   "devDependencies": {
-    "eslint": "6.6.0",
-    "eslint-config-schoenwaldnils": "3.0.2",
-    "husky": "3.0.9",
-    "lint-staged": "9.4.2",
-    "prettier": "1.18.2",
-    "stylelint": "11.1.1",
-    "stylelint-config-schoenwaldnils": "2.1.1"
+    "@types/react": "17.0.0",
+    "@types/recharts": "1.8.17",
+    "eslint": "7.14.0",
+    "husky": "4.3.0",
+    "lint-staged": "10.5.2",
+    "prettier": "2.2.1",
+    "stylelint": "13.8.0",
+    "stylelint-config-schoenwaldnils": "3.0.0"
   },
   "lint-staged": {
     "**/*.js": [
       "eslint --fix",
-      "stylelint --formatter verbose",
-      "git add"
+      "stylelint --formatter verbose"
     ]
   },
   "husky": {

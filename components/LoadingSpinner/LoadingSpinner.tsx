@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { FC } from 'react'
 import styled from '@emotion/styled'
-import { keyframes } from '@emotion/core'
+import { keyframes } from '@emotion/react'
 
 const rotator = keyframes`
   0% {
@@ -48,7 +48,7 @@ const LoadingSpinnerCircle = styled.circle`
     infinite;
 `
 
-const LoadingSpinner = () => (
+const LoadingSpinner: FC = () => (
   <LoadingSpinnerSvg
     width="65px"
     height="65px"

@@ -1,6 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { FC } from 'react'
 import styled from '@emotion/styled'
+
 import {
   ResponsiveContainer,
   AreaChart,
@@ -35,7 +35,10 @@ const GraphDataSource = styled.div`
   }
 `
 
-const Graph = ({ chartData, minmagnitude }) => {
+export const Graph: FC<{
+  minmagnitude: number
+  chartData: ReadonlyArray<object>
+}> = ({ chartData, minmagnitude }) => {
   const startMagnitude = minmagnitude
   const endMagnitude = 9
 
@@ -79,7 +82,7 @@ const Graph = ({ chartData, minmagnitude }) => {
                     dataKey={`m${magnitude}`}
                     stackId="1"
                     fill={`hsl(${(90 / magnitudes.length) * index}, 90%, 40%)`}
-                    stroke={false}
+                    stroke={0}
                   />
                 ))}
             </AreaChart>
@@ -93,11 +96,3 @@ const Graph = ({ chartData, minmagnitude }) => {
     </GraphWrapper>
   )
 }
-
-Graph.propTypes = {
-  minmagnitude: PropTypes.number.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  chartData: PropTypes.object.isRequired,
-}
-
-export default Graph

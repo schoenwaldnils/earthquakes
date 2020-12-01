@@ -1,6 +1,7 @@
 {
   "extends": "stylelint-config-schoenwaldnils",
   "rules": {
-    "number-leading-zero": "always"
+    "number-leading-zero": "always",
+    "declaration-colon-newline-after": null
   }
 }
