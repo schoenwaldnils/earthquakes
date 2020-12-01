@@ -26,15 +26,6 @@ const GraphLoading = styled.div`
   font-size: 3rem;
 `
 
-const GraphDataSource = styled.div`
-  font-size: 0.75rem;
-  color: #777;
-
-  a {
-    color: #777;
-  }
-`
-
 export const Graph: FC<{
   minmagnitude: number
   chartData: ReadonlyArray<Record<string, unknown>>
@@ -88,10 +79,6 @@ export const Graph: FC<{
                 ))}
             </AreaChart>
           </ResponsiveContainer>
-          <GraphDataSource>
-            Quelle:{' '}
-            <a href="https://earthquake.usgs.gov">earthquake.usgs.gov</a>
-          </GraphDataSource>
         </>
       )}
     </GraphWrapper>

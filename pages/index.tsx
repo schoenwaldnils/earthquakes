@@ -30,10 +30,21 @@ const InputSelect = styled(Select)`
   margin-left: 1rem;
 `
 
-const Page: FC<{ chartData: ReadonlyArray<Record<string, unknown>> }> = ({
-  chartData,
-}) => {
+const Source = styled.div`
+  font-size: 0.75rem;
+  color: #777;
+
+  a {
+    color: #777;
+  }
+`
+
+const Page: FC<{
+  chartData: ReadonlyArray<Record<string, unknown>>
+  fetchTime: string
+}> = ({ chartData, fetchTime }) => {
   const [minmagnitude, setMinmagnitude] = useState(6)
+  const date = new Date(fetchTime)
 
   const handleChange = (selectedOption: { value: number; label: string }) => {
     setMinmagnitude(selectedOption.value)
@@ -67,6 +78,12 @@ const Page: FC<{ chartData: ReadonlyArray<Record<string, unknown>> }> = ({
         />
       </InputLabel>
       <Graph chartData={chartData} minmagnitude={minmagnitude} />
+      <Source>
+        <p>
+          Quelle: <a href="https://earthquake.usgs.gov">earthquake.usgs.gov</a>
+        </p>
+        <p>Aktualisiert: {date.toLocaleString('de')}</p>
+      </Source>
     </Wrapper>
   )
 }
@@ -76,6 +93,7 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       chartData,
+      fetchTime: new Date().toJSON(),
     },
   }
 }
