@@ -15,10 +15,12 @@ jobs:
       - uses: actions/setup-node@v1
       - name: npm install
         run: npm ci
-      - name: lint js
-        run: npm run lint:js
       - name: lint css
         run: npm run lint:css
+      - name: lint ts
+        run: npm run lint:ts
+      - name: lint types
+        run: npm run lint:types
       - name: export
         run: npm run export
       - name: S3 Sync
