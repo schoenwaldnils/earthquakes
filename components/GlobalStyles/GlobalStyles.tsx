@@ -1,6 +1,5 @@
-import React from 'react'
-
-import { Global, css } from '@emotion/react'
+import { css, Global } from '@emotion/react'
+import React, { FC } from 'react'
 
 const globalStyles = css`
   *,
@@ -26,4 +25,4 @@ const globalStyles = css`
 `
 
 /* stylelint-disable */
-export const GlobalStyles = () => <Global styles={globalStyles} />
+export const GlobalStyles: FC = () => <Global styles={globalStyles} />

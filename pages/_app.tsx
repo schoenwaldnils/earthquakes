@@ -1,7 +1,9 @@
-import React from 'react'
+import { AppProps } from 'next/dist/next-server/lib/router/router'
+import React, { FC } from 'react'
+
 import { GlobalStyles } from '../components/GlobalStyles'
 
-const EarthquakeApp = ({ Component, pageProps }) => {
+const EarthquakeApp: FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <>
       <GlobalStyles />

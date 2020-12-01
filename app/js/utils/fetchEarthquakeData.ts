@@ -1,6 +1,7 @@
+import cliProgress from 'cli-progress'
 import fetch from 'isomorphic-unfetch'
 import qs from 'qs'
-import cliProgress from 'cli-progress'
+
 import fileQuakes from '../../../quakes.json'
 
 const progressBar = new cliProgress.SingleBar({}, cliProgress.Presets.rect)
@@ -20,20 +21,20 @@ async function fetchData(year, magnitude) {
   )
     .then((data) => {
       if (data.status && data.status !== 200) {
-        console.log(
+        console.error(
           '\n',
           'ERROR! Go to: ',
           '\n',
           `https://earthquake.usgs.gov/fdsnws/event/1/count?${stringifiedParams}`,
           '\n',
         )
-        console.log(data)
       }
 
       return data.json()
     })
     .catch((err) => {
-      console.log(err)
+      // eslint-disable-next-line no-console
+      console.error(err)
     })
 
   return data.count
@@ -97,4 +98,6 @@ const composeData = async (startYear = 2019) => {
   return formatedQuakes
 }
 
-export const fetchEarthquakeData = async () => composeData()
+export const fetchEarthquakeData = async (): Promise<
+  ReadonlyArray<Record<string, unknown>>
+> => composeData()

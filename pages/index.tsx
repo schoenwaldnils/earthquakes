@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
 import styled from '@emotion/styled'
+import { GetStaticProps } from 'next'
+import React, { FC, useState } from 'react'
 import Select from 'react-select'
-import { Graph } from '../components/Graph'
+
 import { fetchEarthquakeData } from '../app/js/utils/fetchEarthquakeData'
+import { Graph } from '../components/Graph'
 
 const Wrapper = styled.div`
   display: flex;
@@ -28,10 +30,12 @@ const InputSelect = styled(Select)`
   margin-left: 1rem;
 `
 
-const Page = ({ chartData }) => {
+const Page: FC<{ chartData: ReadonlyArray<Record<string, unknown>> }> = ({
+  chartData,
+}) => {
   const [minmagnitude, setMinmagnitude] = useState(6)
 
-  const handleChange = (selectedOption) => {
+  const handleChange = (selectedOption: { value: number; label: string }) => {
     setMinmagnitude(selectedOption.value)
   }
 
@@ -67,9 +71,8 @@ const Page = ({ chartData }) => {
   )
 }
 
-export async function getStaticProps(context) {
+export const getStaticProps: GetStaticProps = async () => {
   const chartData = await fetchEarthquakeData()
-  console.log(chartData)
   return {
     props: {
       chartData,

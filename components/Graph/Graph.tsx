@@ -1,15 +1,15 @@
-import React, { FC } from 'react'
 import styled from '@emotion/styled'
-
+import React, { FC } from 'react'
 import {
-  ResponsiveContainer,
-  AreaChart,
   Area,
+  AreaChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  CartesianGrid,
-  Tooltip,
 } from 'recharts'
+
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner'
 
 const GraphWrapper = styled.div`
@@ -37,7 +37,7 @@ const GraphDataSource = styled.div`
 
 export const Graph: FC<{
   minmagnitude: number
-  chartData: ReadonlyArray<object>
+  chartData: ReadonlyArray<Record<string, unknown>>
 }> = ({ chartData, minmagnitude }) => {
   const startMagnitude = minmagnitude
   const endMagnitude = 9
@@ -83,6 +83,7 @@ export const Graph: FC<{
                     stackId="1"
                     fill={`hsl(${(90 / magnitudes.length) * index}, 90%, 40%)`}
                     stroke={0}
+                    key={`area-${magnitude}`}
                   />
                 ))}
             </AreaChart>

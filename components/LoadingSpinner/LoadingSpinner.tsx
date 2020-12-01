@@ -1,6 +1,6 @@
-import React, { FC } from 'react'
-import styled from '@emotion/styled'
 import { keyframes } from '@emotion/react'
+import styled from '@emotion/styled'
+import React, { FC } from 'react'
 
 const rotator = keyframes`
   0% {
