@@ -13,7 +13,7 @@ async function fetchData(year, magnitude) {
     starttime: `${year}-01-01`,
     endtime: `${year}-12-31`,
     minmagnitude: magnitude,
-    maxmagnitude: magnitude + 1,
+    maxmagnitude: magnitude,
   }
   const stringifiedParams = qs.stringify(params)
   const data = await fetch(
